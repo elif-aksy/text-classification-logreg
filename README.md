@@ -70,11 +70,11 @@ Such pipelines form the foundation of scalable data platforms used in large e-co
 ---
 
 ## How to Run
-1. Download the IMDB dataset and place it under the `data/` directory  
-2. Open the notebook file  
-3. Run all cells sequentially  
-
-No additional configuration is required.
+1. Install required libraries:
+   pip install -r requirements.txt
+2. Download the IMDB dataset and place it under the `data/` directory
+3. Open the notebook
+4. Run all cells sequentially
 
 ---
 
