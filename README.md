@@ -1,27 +1,27 @@
 # Text Classification with Logistic Regression (TF-IDF)
 
 ## Project Overview
-This project focuses on building a text classification pipeline using classical machine learning techniques.  
-The goal is to transform raw text data into meaningful numerical representations and evaluate a robust baseline model.
+This project presents an end-to-end text classification pipeline using classical machine learning techniques.  
+The focus is on transforming raw, unstructured text into meaningful numerical features and building a strong, interpretable baseline model.
 
-The project demonstrates an end-to-end workflow from preprocessing to model evaluation, with an emphasis on interpretability and performance metrics.
+The notebook demonstrates a clean and reproducible workflow suitable for data-driven decision support systems in large-scale platforms.
 
 ---
 
 ## Problem Definition
-Text data is widely used in e-commerce platforms for tasks such as product categorization, customer feedback analysis, and content moderation.  
-The challenge is to convert unstructured text into structured features and build a model that can classify texts accurately.
+Text data plays a crucial role in e-commerce platforms through customer reviews, product descriptions, and feedback systems.  
+The main challenge is to convert unstructured text into structured representations and accurately classify it using scalable and interpretable models.
 
 ---
 
 ## Approach
-The workflow follows these steps:
+The project follows these steps:
 
 - Text preprocessing and cleaning  
 - Feature extraction using **TF-IDF**
 - Model training with **Logistic Regression**
 - Hyperparameter tuning using **GridSearchCV**
-- Model evaluation with classification metrics
+- Model evaluation with robust classification metrics  
 
 ---
 
@@ -33,28 +33,44 @@ The workflow follows these steps:
 
 ---
 
+## Dataset
+This project uses the **IMDB Movie Reviews Dataset**, a publicly available dataset containing labeled movie reviews.
+
+The dataset is **not included in the repository** to keep it lightweight and reusable.
+
+### Download Instructions
+1. Download the dataset from Kaggle:  
+   https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews
+
+2. Create a folder named `data` in the repository root.
+
+3. Place the CSV file inside the folder with the following structure:
+
+
+---
+
 ## Evaluation & Results
 Model performance is evaluated using:
 - **Macro F1-score**
+- **Precision & Recall**
 - **Confusion Matrix**
-- Precision and Recall
 
-These metrics help assess class-wise performance, especially in imbalanced settings.
+These metrics provide insight into class-wise performance and robustness, especially in imbalanced scenarios.
 
 ---
 
 ## Business Relevance
 Accurate text classification can support:
-- Better product and content categorization  
-- Improved customer insight generation  
-- More reliable analytics and reporting pipelines  
+- Customer feedback analysis  
+- Product and content categorization  
+- Insight generation for analytics and BI platforms  
 
-Such models can act as foundational components for data-driven decision-making in large-scale e-commerce platforms.
+Such pipelines form the foundation of scalable data platforms used in large e-commerce ecosystems.
 
 ---
 
 ## How to Run
-1. Clone the repository  
+1. Download the IMDB dataset and place it under the `data/` directory  
 2. Open the notebook file  
 3. Run all cells sequentially  
 
@@ -63,6 +79,6 @@ No additional configuration is required.
 ---
 
 ## Future Improvements
-- Experiment with different vectorization techniques  
-- Try alternative classification models  
-- Extend the pipeline to larger or multilingual datasets  
+- Experiment with alternative vectorization techniques  
+- Compare different classification models  
+- Extend the pipeline to multilingual or larger-scale datasets  
