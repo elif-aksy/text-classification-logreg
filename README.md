@@ -1,84 +1,86 @@
-# Text Classification with Logistic Regression (TF-IDF)
+# Image Fusion & Resolution Enhancement (Pansharpening Pipeline)
 
-## Project Overview
-This project presents an end-to-end text classification pipeline using classical machine learning techniques.  
-The focus is on transforming raw, unstructured text into meaningful numerical features and building a strong, interpretable baseline model.
+## Overview
+This project implements and compares multiple **pansharpening / image fusion** strategies to enhance spatial detail in color images by combining:
+- a **low-resolution RGB** image (MS),
+- a **high-resolution grayscale (PAN)** image.
 
-The notebook demonstrates a clean and reproducible workflow suitable for data-driven decision support systems in large-scale platforms.
-
----
-
-## Problem Definition
-Text data plays a crucial role in e-commerce platforms through customer reviews, product descriptions, and feedback systems.  
-The main challenge is to convert unstructured text into structured representations and accurately classify it using scalable and interpretable models.
+The notebook focuses on an **end-to-end fusion workflow**: preprocessing, fusion, visualization, and quantitative evaluation.
 
 ---
 
-## Approach
-The project follows these steps:
+## What’s Implemented
+The notebook includes the following fusion approaches:
 
-- Text preprocessing and cleaning  
-- Feature extraction using **TF-IDF**
-- Model training with **Logistic Regression**
-- Hyperparameter tuning using **GridSearchCV**
-- Model evaluation with robust classification metrics  
+### 1) IHS-Based Fusion (Intensity Substitution)
+- Convert the upsampled RGB image to an IHS/HSV-like representation
+- Match intensity statistics (and/or histogram) between intensity and PAN
+- Substitute or fuse the **Intensity** component using PAN
+- Convert back to RGB
 
----
-
-## Technologies Used
-- Python  
-- scikit-learn  
-- pandas, numpy  
-- matplotlib / seaborn  
+**Goal:** preserve color structure while improving spatial sharpness.
 
 ---
 
-## Dataset
-This project uses the **IMDB Movie Reviews Dataset**, a publicly available dataset containing labeled movie reviews.
+### 2) IHS-Like Fusion (Detail Injection Baseline)
+- Compute a base intensity from the upsampled RGB
+- Normalize/match PAN to the intensity distribution
+- Inject PAN detail into RGB channels
 
-The dataset is **not included in the repository** to keep it lightweight and reusable.
-
-### Download Instructions
-1. Download the dataset from Kaggle:  
-   https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews
-
-2. Create a folder named `data` in the repository root.
-
-3. Place the CSV file inside the folder with the following structure:
-
+**Goal:** a strong baseline to compare against IHS substitution.
 
 ---
 
-## Evaluation & Results
-Model performance is evaluated using:
-- **Macro F1-score**
-- **Precision & Recall**
-- **Confusion Matrix**
+### 3) Brovey Transform
+- Compute intensity from RGB channels
+- Use ratio-based modulation with PAN:
+  - gain = PAN / (Intensity + eps)
+  - fused = RGB * gain
 
-These metrics provide insight into class-wise performance and robustness, especially in imbalanced scenarios.
+**Goal:** aggressive sharpening and contrast enhancement (may introduce spectral distortion).
 
 ---
 
-## Business Relevance
-Accurate text classification can support:
-- Customer feedback analysis  
-- Product and content categorization  
-- Insight generation for analytics and BI platforms  
+### 4) Gram–Schmidt / Detail Injection Baseline
+- Build an intensity proxy from RGB
+- Match PAN to intensity statistics
+- Inject the detail component (PAN - Intensity) into RGB
 
-Such pipelines form the foundation of scalable data platforms used in large e-commerce ecosystems.
+**Goal:** another commonly-used baseline for spatial detail injection.
+
+---
+
+### 5) Hybrid Fusion (Weighted Blend)
+- Combine IHS and Brovey outputs with a weight `w`:
+  - hybrid = w * IHS + (1-w) * Brovey
+
+**Goal:** balance color preservation (IHS) with sharpness (Brovey).
+
+---
+
+## Evaluation
+Fusion quality is evaluated with both **visual comparison** and quantitative metrics:
+- **MSE**
+- **PSNR (dB)**
+- **SAM (deg)**
+- **SCC** (spatial correlation / correlation-based measure)
+
+These metrics help compare trade-offs between spatial enhancement and spectral distortion.
+
+---
+
+## Tech Stack
+- Python
+- NumPy
+- OpenCV
+- scikit-image
+- SciPy
+- Matplotlib
 
 ---
 
 ## How to Run
-1. Install required libraries:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
    pip install -r requirements.txt
-2. Download the IMDB dataset and place it under the `data/` directory
-3. Open the notebook
-4. Run all cells sequentially
-
----
-
-## Future Improvements
-- Experiment with alternative vectorization techniques  
-- Compare different classification models  
-- Extend the pipeline to multilingual or larger-scale datasets  
